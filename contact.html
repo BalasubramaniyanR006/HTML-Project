@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Me</title>
+ <style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  nav {
+    text-align: center;
+    background: #333;
+    padding: 10px;
+  }
+  nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  .container {
+    max-width: 900px;
+    background: white;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  h1, h2 {
+    color: #222;
+  }
+  footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    margin-top: 30px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Contact Me</h1>
+  </header>
+  <nav>
+    <a href="portfolio.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+  </nav>
+  <div class="container">
+    <form>
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" required><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" required><br><br>
+
+      <label for="message">Message:</label><br>
+      <textarea id="message" rows="5" required></textarea><br><br>
+
+      <button type="submit" style="background:#3b82f6;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">Send</button>
+    </form>
+  </div>
+  <footer>
+    <p>I'm excited to hear from you!</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registration</title>
+  <link rel="icon" href="logo.png">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #efeeeb;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      flex-direction: column;
+    }
+    .container {
+      background: #707172;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      width: 300px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .error-message {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-left: 10px;
+    }
+    input.error {
+      border-color: #ef4444;
+      background-color: #381a1a;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #229300;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1e7c00;
+    }
+    #success-message {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #22c55e;
+      text-align: center;
+    }
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      color: black;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background: #d2d2d2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Register</h1>
+    <form id="registration-form" novalidate>
+      <div class="form-group">
+        <label for="name">Name <span class="error-message" id="error-name"></span></label>
+        <input type="text" id="name" name="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span class="error-message" id="error-email"></span></label>
+        <input type="email" id="email" name="email" />
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile <span class="error-message" id="error-mobile"></span></label>
+        <input type="tel" id="mobile" name="mobile" />
+      </div>
+      <div class="form-group">
+        <label for="college">College <span class="error-message" id="error-college"></span></label>
+        <input type="text" id="college" name="college" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password <span class="error-message" id="error-password"></span></label>
+        <input type="password" id="password" name="password" />
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password <span class="error-message" id="error-confirm-password"></span></label>
+        <input type="password" id="confirm-password" name="confirm-password" />
+      </div>
+      <button type="submit">Register</button>
+    </form>
+    <div id="success-message"></div>
+  </div>
+
+  <!-- Table will appear here -->
+  <div id="output"></div>
+
+  <script>
+    const form = document.getElementById('registration-form');
+    const output = document.getElementById('output');
+    const successMessage = document.getElementById('success-message');
+    const fields = ['name', 'email', 'mobile', 'college', 'password', 'confirm-password'];
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      let valid = true;
+      successMessage.textContent = '';
+      output.innerHTML = '';
+
+      fields.forEach(field => {
+        const input = document.getElementById(field);
+        input.classList.remove('error');
+        document.getElementById('error-' + field).textContent = '';
+      });
+
+      fields.forEach(field => {
+        const input = document.getElementById(field);
+        if (!input.value.trim()) {
+          valid = false;
+          input.classList.add('error');
+          document.getElementById('error-' + field).textContent = 'This field is required.';
+        }
+      });
+
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
+      if (password && confirmPassword && password !== confirmPassword) {
+        valid = false;
+        document.getElementById('confirm-password').classList.add('error');
+        document.getElementById('error-confirm-password').textContent = 'Passwords do not match.';
+      }
+
+      if (valid) {
+        successMessage.textContent = 'Registration successful!';
+
+        const formData = {};
+        fields.forEach(field => {
+          formData[field] = document.getElementById(field).value.trim();
+        });
+
+        // Create table
+        const table = document.createElement('table');
+        const headerRow = document.createElement('tr');
+        Object.keys(formData).forEach(key => {
+          const th = document.createElement('th');
+          th.textContent = key.replace('-', ' ').toUpperCase();
+          headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        const dataRow = document.createElement('tr');
+        Object.values(formData).forEach(value => {
+          const td = document.createElement('td');
+          td.textContent = value;
+          dataRow.appendChild(td);
+        });
+        table.appendChild(dataRow);
+
+        output.appendChild(table);
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
